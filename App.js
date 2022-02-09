@@ -1,11 +1,33 @@
-import { StyleSheet, View } from "react-native";
+import React, { Component } from "react";
+import { StyleSheet, View, Text } from "react-native";
+import * as Font from "expo-font";
 import Title from "./src/components/Title";
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Title title="Hello I'am the title" />
-    </View>
-  );
+
+class App extends Component {
+  state = {
+    fontLoaded: false,
+  };
+  async componentDidMount() {
+    await Font.loadAsync({
+      "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+    });
+    this.setState({
+      fontLoaded: true,
+    });
+  }
+  render() {
+    const { fontLoaded } = this.state;
+    return !fontLoaded ? (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    ) : (
+      <View style={styles.container}>
+        <Title title="Hello I'am the title" />
+        <Title title="Lorem ipsum" />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -13,6 +35,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });
+
+export default App;
