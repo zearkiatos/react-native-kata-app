@@ -1,15 +1,8 @@
 import React, { memo } from "react";
-import { Text, StyleSheet } from "react-native";
+import Text from '../Text';
 
 const Title = memo(({ title }) => {
-  console.log("Render");
-  return <Text style={styles.text}>{title}</Text>;
-});
-
-const styles = StyleSheet.create({
-  text: {
-    fontFamily: 'open-sans-bold'
-  }
+  return <Text>{title}</Text>;
 });
 
 export default Title;
